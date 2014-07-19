@@ -6,7 +6,7 @@
 #define __BEEP_H__
 
 
-#define BEEP_DEFAULT_FILE    "/usr/share/pommed/goutte.wav"
+#define BEEP_DEFAULT_FILE    DATADIR "/pommed/goutte.wav"
 #define BEEP_DEVICE_NAME     "Pommed beeper device"
 
 void

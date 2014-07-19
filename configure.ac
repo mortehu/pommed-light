@@ -1,0 +1,34 @@
+AC_INIT(pommed,1.0.0)
+
+AC_CANONICAL_HOST
+
+ARCH_PPC=0
+REQUIRED_PACKAGES="alsa audiofile libconfuse"
+
+case "$host" in
+  *-ppc-*)
+    ARCH_PPC=1
+    ;;
+  *)
+    REQUIRED_PACKAGES="$REQUIRED_PACKAGES libpci"
+    ;;
+esac
+
+AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+
+AM_MAINTAINER_MODE([enable])
+
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+PKG_CHECK_MODULES([PACKAGES], [$REQUIRED_PACKAGES])
+
+AC_SUBST(PACKAGES_CFLAGS)
+AC_SUBST(PACKAGES_LIBS)
+
+AM_CONDITIONAL(ARCH_PPC, [test $ARCH_PPC = 1])
+
+AC_OUTPUT([Makefile pommed/Makefile])
